@@ -1,4 +1,4 @@
-# A JDBC client Program / Project
+# A Java Program / Project
 
 **This is a java project from my early days as a Computer Science student**
 
@@ -12,7 +12,12 @@ ratings of some locations, find the k nearest neighbours through similarity scor
 
 > #### Impementation of project
 >
-> 1. Tip 1: I record the second runtime in order for the buffers to initialize 
+> 1. Implementing knn algorithm using these heuristics for similarity score:
+>> - Cosine similarity
+>> - Euclidean distance 
+>> - Manhattan distance
+>
+> 2. Using the ratings of the k nearest neighbours the system recommends some non rated location ratings
 
 
 > #### About this project
