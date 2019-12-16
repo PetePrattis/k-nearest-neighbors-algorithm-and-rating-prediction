@@ -11,7 +11,7 @@ public class knn_ratings_float {
 	public static int[][] ratings = new int[20][6];
 	
 	public static void main(String[] args){
-		int[][] ratings = {//(11 user ratings 1-5 for some locations                
+		int[][] ratings = {//(12 user ratings 1-5 for some locations                
                 {5,3,1,5,1,1,1,3,5,2,3,4,3,3,4,2,2,4,4,1,2,2,5,1,5,4,1,2,3,4,4,5,5,4,5,4,2,1,2,4,4,2,3,5,4,1,2,3,3,5,3,2,4,3,3,3,5,5,2,1,3,2,5,2,5}, 
                 {5,2,2,3,5,5,1,3,2,5,1,5,4,1,5,5,4,4,2,5,5,5,3,3,1,4,2,4,3,1,4,2,4,5,2,4,2,1,4,1,4,2,2,1,3,5,4,5,3,2,2,4,3,3,3,5,1,2,5,3,2,1,2,1,4}, 
                 {2,2,2,2,2,5,3,4,4,1,4,2,5,2,1,4,2,2,3,1,1,4,5,2,5,4,4,2,2,1,1,1,4,4,2,3,2,4,2,2,4,3,4,3,5,5,5,5,5,2,1,1,5,3,2,1,2,5,5,3,1,5,3,5,4}, 
@@ -78,7 +78,7 @@ public class knn_ratings_float {
     	ArrayList <Double> recommended = new ArrayList<Double>();
     	ArrayList <String> recommended_name = new ArrayList<String>();
     	double weightedSum = 0; 
-	   double similaritySum = 0; //osoi users einai pio konta tote ypologizetai 
+	   double similaritySum = 0; //those closest to user then calculate
 	    
 	    for(int i=0; i<ratings[0].length; i++) { //for n locations
 	    	for(int j=0; j<ratings.length-1; j++) { //for m users
@@ -113,25 +113,25 @@ public class knn_ratings_float {
 		double sumSquares = 0;
 		boolean flag = true;
 		for(int j=0; j<ratings[0].length; j++) { //for each location
-			if(i != num && ratings[num][j]!=0 && ratings[i][j]!=0) { //an o pros eksetasi user den einai o user pou kanoume recommend (i!=num) & gia ta diathesima 
-					//ratings pou ehoume apo ton user pou provlepoume alla kai tous ypoloipous users pou eksetazoume
+			if(i != num && ratings[num][j]!=0 && ratings[i][j]!=0) { //if the user we are considering is not the selected user (i!=num) 
+					//and the ratings of the current user and the selected user are not zero
 					//euclidean
 				double diff = 0;
 				diff = ratings[num][j] - ratings[i][j]; 
 				sumSquares += diff*diff; //to be eucledian
 				flag = true;
 			}
-			else if (i == num) //an o xristis pros eksetasi einai o user pou theloume provlepsi
+			else if (i == num) //if the user to be tested is the user we want to recommend ratings
 				flag = false;
 		}
-		if(flag) { //an kaname SUGKRISI me olous ektos apo ton xristi pou epizitoume PROVLEPSI
+		if(flag) { //if we COMPARED with everyone except the user we selected
 			double d = Math.sqrt(sumSquares); //eucledian dist
 			double similarity = 1/d;
 			if (Double.isInfinite(similarity)) {
-				similarity = 1; //einai EXACT SAME
+				similarity = 1; //is EXACT SAME
 			}
 		
-			System.out.println("user: "+num+" has similarity to user: "+ i+" of value "+similarity); //similarity me tous ypoloipous users
+			System.out.println("user: "+num+" has similarity to user: "+ i+" of value "+similarity); //similarity with rest of users
 			user.add(i);
 			sim.add(similarity);
 			ssim.add(similarity);
@@ -148,8 +148,8 @@ public class knn_ratings_float {
 		double sumBSq = 0;
 		double similarity;
 		
-		for(int j=0; j<ratings[0].length; j++) { //gia oles tis topothesies
-			if(i != num && ratings[num][j]!=0 && ratings[i][j]!=0) { //den endiaferomaste gia ta 0 values, diladi gi'auta pou den exoune vathmologies
+		for(int j=0; j<ratings[0].length; j++) { //for all locations
+			if(i != num && ratings[num][j]!=0 && ratings[i][j]!=0) { //we don't care about zero ratings
 				sumProduct += ratings[num][j]*ratings[i][j];
 				sumASq += ratings[num][j]*ratings[num][j];
 				sumBSq += ratings[i][j] * ratings[i][j];
@@ -160,7 +160,7 @@ public class knn_ratings_float {
 		}
 		else {
 			similarity = sumProduct / (Math.sqrt(sumASq) * Math.sqrt(sumBSq));
-			System.out.println("user: "+num+" has similarity to user: "+ i+" of value "+similarity); //similarity me tous ypoloipous users
+			System.out.println("user: "+num+" has similarity to user: "+ i+" of value "+similarity); //similarity with rest of users
 		}
 		
 		
@@ -194,7 +194,7 @@ public class knn_ratings_float {
 		if (flag)
 		{
 			total = res + res1;
-			System.out.println("user: "+num+" has similarity to user: "+ i+" of value "+ total); //similarity me tous ypoloipous users
+			System.out.println("user: "+num+" has similarity to user: "+ i+" of value "+ total); //similarity with rest of users
 			user.add(i);
 			sim.add(total);
 			ssim.add(total);
