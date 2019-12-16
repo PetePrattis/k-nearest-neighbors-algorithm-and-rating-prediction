@@ -17,7 +17,7 @@ ratings of some locations, find the k nearest neighbours through similarity scor
 >> - Euclidean distance 
 >> - Manhattan distance
 >
-> 2. Using the ratings of the k nearest neighbours the system recommends some non rated location ratings
+> 2. Using the ratings of the k nearest neighbours the system recommends some non-rated-locations ratings
 
 
 > #### About this project
