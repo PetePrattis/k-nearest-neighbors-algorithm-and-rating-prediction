@@ -8,7 +8,7 @@ and is a test program implementing knn algorithm to use as a template for my the
 > #### Description of project
 >
 >>A Java console application that implements the factionality of the knn algorithm to find the similarity between a new user with only a few non zero
-ratings of some locations, find the k nearest neighbours through similarity score and then predict the ratings of the new user for the non rated locations.
+ratings of some locations, find the k nearest neighbors through similarity score and then predict the ratings of the new user for the non rated locations.
 
 > #### Impementation of project
 >
